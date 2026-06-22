@@ -1,0 +1,10 @@
+[package]
+cjc-version = "1.0.0"
+name = "cangjie_demo"
+description = "仓颉单元测试CI/CD演示项目"
+version = "1.0.0"
+output-type = "executable"
+src-dir = "src"
+
+[profile]
+test = {}
