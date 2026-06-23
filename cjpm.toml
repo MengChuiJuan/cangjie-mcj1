@@ -1,7 +1,7 @@
 [package]
 cjc-version = "1.0.0"
-name = "cangjie_demo"
-description = "仓颉单元测试CI/CD演示项目"
+name = "string_utils_demo"
+description = "仓颉字符串工具库 CI/CD 演示项目"
 version = "1.0.0"
 output-type = "executable"
 src-dir = "src"
