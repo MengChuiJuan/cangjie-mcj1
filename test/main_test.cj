@@ -1,99 +1,67 @@
-use std.unittest;
-use std.unittest.testmacro.*;
-use cangjie_demo::*;
+import std.unittest.*
+import std.unittest.testmacro.*
+import string_utils_demo.*
 
-// 加法测试类
 @Test
-class AddTest {
+class ReverseTest {
     @TestCase
-    fn testPosAdd() {
-        @Expect(add(1,2), 3);
+    func testReverseNormal() {
+        @Expect(reverse("hello"), "olleh")
     }
     @TestCase
-    fn testNegAdd() {
-        @Expect(add(-5, -3), -8);
+    func testReverseEmpty() {
+        @Expect(reverse(""), "")
     }
     @TestCase
-    fn testBigAdd() {
-        @Expect(add(9999, 1), 10000);
+    func testReverseSingle() {
+        @Expect(reverse("a"), "a")
     }
 }
 
-// 乘法测试
 @Test
-class MultiplyTest {
+class PalindromeTest {
     @TestCase
-    fn testPosMul() {
-        @Expect(multiply(3,4),12);
+    func testPalindromeTrue() {
+        @Expect(isPalindrome("racecar"), true)
     }
     @TestCase
-    fn testZeroMul() {
-        @Expect(multiply(99,0),0);
+    func testPalindromeWithSpaces() {
+        @Expect(isPalindrome("never odd or even"), true)
     }
     @TestCase
-    fn testNegMul() {
-        @Expect(multiply(-2,3),-6);
+    func testPalindromeFalse() {
+        @Expect(isPalindrome("hello"), false)
     }
 }
 
-// 除法测试（包含除零异常）
 @Test
-class DivideTest {
+class UpperLowerTest {
     @TestCase
-    fn testNormalDiv() {
-        @Expect(divide(10,2),5);
+    func testToUpper() {
+        @Expect(toUpper("hello"), "HELLO")
     }
     @TestCase
-    fn testNegDiv() {
-        @Expect(divide(-10,2),-5);
+    func testToLower() {
+        @Expect(toLower("WORLD"), "world")
     }
     @TestCase
-    @AssertThrows
-    fn testDivZero() {
-        divide(5,0);
+    func testMixed() {
+        @Expect(toUpper("AbCd"), "ABCD")
     }
 }
 
-// 阶乘测试
 @Test
-class FactorialTest {
+class VowelCountTest {
     @TestCase
-    fn testBoundary() {
-        @Expect(factorial(0),1);
-        @Expect(factorial(1),1);
+    func testVowelsOnly() {
+        @Expect(countVowels("aeiou"), 5)
     }
     @TestCase
-    fn testNormal() {
-        @Expect(factorial(3),6);
-        @Expect(factorial(5),120);
-        @Expect(factorial(7),5040);
-    }
-}
-
-// 素数测试
-@Test
-class PrimeTest {
-    @TestCase
-    fn testNotPrime() {
-        @Expect(isPrime(4), false);
+    func testNoVowels() {
+        @Expect(countVowels("xyz"), 0)
     }
     @TestCase
-    fn testPrime() {
-        @Expect(isPrime(7), true);
+    func testMixedCase() {
+        @Expect(countVowels("Hello World"), 3) // e, o, o
     }
-    @TestCase
-    fn testBigPrime() {
-        @Expect(isPrime(97), true);
-    }
-}
-
-// 独立测试函数
-@TestCase
-fn simpleAddTest() {
-    @Expect(add(100,200),300);
-}
-
-@TestCase
-fn simpleFactorialTest() {
-    @Expect(factorial(4),24);
 }
