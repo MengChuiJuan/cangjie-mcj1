@@ -1,40 +1,34 @@
-name: 仓颉CI/CD自动化测试
+name: CI for String Utils
+
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ main, master ]
+  workflow_dispatch:  # 手动触发
 
 jobs:
-  build-test:
-    name: 构建与单元测试
+  build-and-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./code
     steps:
-      # 检出代码，强制放到单层code文件夹，消除双层嵌套
-      - name: 检出代码仓库
+      - name: 检出代码
         uses: actions/checkout@v4
-        with:
-          path: ./code
 
-      # 安装仓颉环境（自动进入单层code目录）
-      - name: 安装仓颉编程语言环境
+      - name: 安装仓颉环境
         uses: Zxilly/setup-cangjie@v3
         with:
-          channel: LTS
+          channel: lts   # 使用 LTS 通道
 
-      - name: 验证仓颉工具链
+      - name: 验证工具链
         run: |
           cjc --version
           cjpm --version
 
-      - name: 构建仓颉项目
+      - name: 构建项目
         run: cjpm build --verbose
 
-      - name: 运行仓颉单元测试
-        run: |
-          echo "===开始运行单元测试==="
-          cjpm test --verbose
+      - name: 运行单元测试
+        run: cjpm test --verbose
+
+      - name: 输出完成信息
+        run: echo "✅ CI 流程成功完成！"
